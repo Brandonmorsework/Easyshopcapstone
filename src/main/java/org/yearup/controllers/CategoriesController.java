@@ -1,32 +1,57 @@
 package org.yearup.controllers;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 import org.yearup.data.CategoryDao;
-import org.yearup.data.ProductDao;
+
 import org.yearup.models.Category;
 import org.yearup.models.Product;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 // add the annotations to make this a REST controller
 // add the annotation to make this controller the endpoint for the following url
     // http://localhost:8080/categories
 // add annotation to allow cross site origin requests
+
+@RestController
+@RequestMapping("categories")
+@CrossOrigin
+
 public class CategoriesController
 {
     private CategoryDao categoryDao;
-    private ProductDao productDao;
 
 
-    // create an Autowired controller to inject the categoryDao and ProductDao
+
+    @Autowired
+    public CategoriesController(CategoryDao categoryDao)
+    {
+        this.categoryDao = categoryDao;
+    }
 
     // add the appropriate annotation for a get action
-    public List<Category> getAll()
+
+    @GetMapping("")
+    @PreAuthorize("permitAll()")
+    public List<Category> getAll(@RequestParam(name="cat", required = false) Integer categoryId,
+                                 @RequestParam(name="minPrice", required = false) BigDecimal minPrice,
+                                 @RequestParam(name="maxPrice", required = false) BigDecimal maxPrice,
+                                 @RequestParam(name="color", required = false) String color
+    )
     {
-        // find and return all categories
-        return null;
+        try
+        {
+            return categoryDao.getAll(categoryId, minPrice, maxPrice, color);
+        }
+        catch(Exception ex)
+        {
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Oops... our bad.");
+        }
     }
 
     // add the appropriate annotation for a get action
