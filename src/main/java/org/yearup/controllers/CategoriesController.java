@@ -6,6 +6,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 import org.yearup.data.CategoryDao;
+import org.yearup.data.ProductDao;
 import org.yearup.models.Category;
 import org.yearup.models.Product;
 import java.util.List;
@@ -21,14 +22,16 @@ import java.util.List;
 
 public class CategoriesController
 {
-    private CategoryDao categoryDao;
+    private final CategoryDao categoryDao;
+    private final ProductDao productDao;
 
 
 
     @Autowired
-    public CategoriesController(CategoryDao categoryDao)
+    public CategoriesController(CategoryDao categoryDao, ProductDao productDao)
     {
         this.categoryDao = categoryDao;
+        this.productDao = productDao;
     }
 
     // add the appropriate annotation for a get action
@@ -58,7 +61,7 @@ public class CategoriesController
         try {
             category = categoryDao.getById(id);
         } catch (Exception ex) {
-            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Oops... our bad.");
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Nothing Here but us Chickens...");
         }
 
         if (category == null) {
@@ -70,10 +73,21 @@ public class CategoriesController
     // the url to return all products in category 1 would look like this
     // https://localhost:8080/categories/1/products
     @GetMapping("{categoryId}/products")
+    @PreAuthorize("permitAll()")
     public List<Product> getProductsById(@PathVariable int categoryId)
     {
-        // get a list of product by categoryId
-        return null;
+        try {
+            List<Product> products = productDao.listByCategoryId(categoryId);
+
+            if (products == null || products.isEmpty()) {
+                throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+            }
+
+            return products;
+
+        } catch (Exception ex) {
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Nothing Here but us Chickens...");
+        }
     }
 
     // add annotation to call this method for a POST action
@@ -113,6 +127,8 @@ public class CategoriesController
 
     // add annotation to call this method for a DELETE action - the url path must include the categoryId
     // add annotation to ensure that only an ADMIN can call this function
+    @DeleteMapping("{id}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public void deleteCategory(@PathVariable int id)
     // delete the category by id
     {
