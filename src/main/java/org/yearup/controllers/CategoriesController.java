@@ -6,11 +6,8 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 import org.yearup.data.CategoryDao;
-
 import org.yearup.models.Category;
 import org.yearup.models.Product;
-
-import java.math.BigDecimal;
 import java.util.List;
 
 // add the annotations to make this a REST controller
@@ -38,15 +35,14 @@ public class CategoriesController
 
     @GetMapping("")
     @PreAuthorize("permitAll()")
-    public List<Category> getAll(@RequestParam(name="cat", required = false) Integer categoryId,
-                                 @RequestParam(name="minPrice", required = false) BigDecimal minPrice,
-                                 @RequestParam(name="maxPrice", required = false) BigDecimal maxPrice,
-                                 @RequestParam(name="color", required = false) String color
-    )
+    public List<Category> getAllCategories(@RequestParam(name="categoryId", required = false) Integer categoryId,
+                                 @RequestParam(name="name", required = false) String name,
+                                 @RequestParam(name="description", required = false) String description
+                                )
     {
         try
         {
-            return categoryDao.getAll(categoryId, minPrice, maxPrice, color);
+            return categoryDao.getAllCategories(categoryId, name, description);
         }
         catch(Exception ex)
         {

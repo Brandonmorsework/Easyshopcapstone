@@ -1,9 +1,7 @@
 package org.yearup.data.mysql;
-
 import org.springframework.stereotype.Component;
 import org.yearup.models.Product;
 import org.yearup.data.ProductDao;
-
 import javax.sql.DataSource;
 import java.math.BigDecimal;
 import java.sql.*;
@@ -37,11 +35,10 @@ public class MySqlProductDao extends MySqlDaoBase implements ProductDao
         {
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setInt(1, categoryId);
-            statement.setInt(2, categoryId);
-            statement.setBigDecimal(3, minPrice);
-            statement.setBigDecimal(4, maxPrice);
-            statement.setString(5, color);
-            statement.setString(6, color);
+            statement.setBigDecimal(2, minPrice);
+            statement.setBigDecimal(3, maxPrice);
+            statement.setString(4, color);
+
 
             ResultSet row = statement.executeQuery();
 
