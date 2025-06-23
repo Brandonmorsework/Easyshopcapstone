@@ -1,5 +1,7 @@
 package org.yearup.data.mysql;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
+import org.springframework.web.server.ResponseStatusException;
 import org.yearup.data.CategoryDao;
 import org.yearup.models.Category;
 import javax.sql.DataSource;
@@ -79,21 +81,53 @@ public class MySqlCategoryDao extends MySqlDaoBase implements CategoryDao
 
     @Override
     public Category create(Category category)
+    // create a new category
     {
-        // create a new category
+
+        String sql = "INSERT INTO categories(category_id, name, description) " +
+                " VALUES (?, ?, ?);";
+
+        try (Connection connection = getConnection())
+        {
+            PreparedStatement statement = connection.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
+            statement.setInt(1, category.getCategoryId());
+            statement.setString(2, category.getName());
+            statement.setString(3, category.getDescription());
+
+            int rowsAffected = statement.executeUpdate();
+
+            if (rowsAffected > 0) {
+                // Retrieve the generated keys
+                ResultSet generatedKeys = statement.getGeneratedKeys();
+
+                if (generatedKeys.next()) {
+                    // Retrieve the auto-incremented ID
+                    int orderId = generatedKeys.getInt(1);
+
+                    // get the newly inserted category
+                    return getById(orderId);
+                }
+            }
+        }
+        catch (SQLException e)
+        {
+            throw new RuntimeException(e);
+        }
         return null;
     }
 
     @Override
     public void update(int categoryId, Category category)
+    // update category
     {
-        // update category
+
     }
 
     @Override
     public void delete(int categoryId)
+    // delete category
     {
-        // delete category
+
     }
 
     private Category mapRow(ResultSet row) throws SQLException

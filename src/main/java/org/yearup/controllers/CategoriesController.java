@@ -106,7 +106,7 @@ public class CategoriesController
     {
         try
         {
-            category.create(category);
+            categoryDao.update(id, category);
         }
         catch(Exception ex)
         {
