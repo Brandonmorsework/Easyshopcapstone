@@ -46,29 +46,25 @@ public class CategoriesController
         }
         catch(Exception ex)
         {
-            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Oops... our bad.");
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Nothing Here but us Chickens...");
         }
     }
 
     // add the appropriate annotation for a get action
     @GetMapping("{id}")
     @PreAuthorize("permitAll()")
-    public Category getById(@PathVariable int id)
-    // get the category by id
-    {
-        try
-        {
-            var category = categoryDao.getById(id);
-
-            if(category == null)
-                throw new ResponseStatusException(HttpStatus.NOT_FOUND);
-
-            return category;
-        }
-        catch(Exception ex)
-        {
+    public Category getById(@PathVariable int id) {
+        Category category = null;
+        try {
+            category = categoryDao.getById(id);
+        } catch (Exception ex) {
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Oops... our bad.");
         }
+
+        if (category == null) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
+        return category;
     }
 
     // the url to return all products in category 1 would look like this
@@ -93,7 +89,7 @@ public class CategoriesController
         }
         catch(Exception ex)
         {
-            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Oops... our bad.");
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Nothing Here but us Chickens...");
         }
     }
 
@@ -110,7 +106,7 @@ public class CategoriesController
         }
         catch(Exception ex)
         {
-            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Oops... our bad.");
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Nothing Here but us Chickens...");
         }
     }
 
@@ -118,7 +114,20 @@ public class CategoriesController
     // add annotation to call this method for a DELETE action - the url path must include the categoryId
     // add annotation to ensure that only an ADMIN can call this function
     public void deleteCategory(@PathVariable int id)
+    // delete the category by id
     {
-        // delete the category by id
+        try
+        {
+            var category = categoryDao.getById(id);
+
+            if(category== null)
+                throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+
+            categoryDao.delete(id);
+        }
+        catch(Exception ex)
+        {
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Nothing Here but us Chickens...");
+        }
     }
 }

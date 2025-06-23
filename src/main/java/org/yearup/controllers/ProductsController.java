@@ -14,52 +14,43 @@ import java.util.List;
 @RestController
 @RequestMapping("products")
 @CrossOrigin
-public class ProductsController
-{
+public class ProductsController {
     private ProductDao productDao;
 
     @Autowired
-    public ProductsController(ProductDao productDao)
-    {
+    public ProductsController(ProductDao productDao) {
         this.productDao = productDao;
     }
 
     @GetMapping("")
     @PreAuthorize("permitAll()")
-    public List<Product> search(@RequestParam(name="categoryId", required = false) Integer categoryId,
-                                @RequestParam(name="minPrice", required = false) BigDecimal minPrice,
-                                @RequestParam(name="maxPrice", required = false) BigDecimal maxPrice,
-                                @RequestParam(name="color", required = false) String color
-                                )
-    {
-        try
-        {
+    public List<Product> search(@RequestParam(name = "categoryId", required = false) Integer categoryId,
+                                @RequestParam(name = "minPrice", required = false) BigDecimal minPrice,
+                                @RequestParam(name = "maxPrice", required = false) BigDecimal maxPrice,
+                                @RequestParam(name = "color", required = false) String color
+    ) {
+        try {
             return productDao.search(categoryId, minPrice, maxPrice, color);
-        }
-        catch(Exception ex)
-        {
-            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Oops... our bad.");
+        } catch (Exception ex) {
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Nothing Here but us Chickens...");
         }
     }
 
     @GetMapping("{id}")
     @PreAuthorize("permitAll()")
-    public Product getById(@PathVariable int id )
-    {
-        try
-        {
-            var product = productDao.getById(id);
-
-            if(product == null)
-                throw new ResponseStatusException(HttpStatus.NOT_FOUND);
-
-            return product;
-        }
-        catch(Exception ex)
-        {
+    public Product getById(@PathVariable int id) {
+        Product product = null;
+        try {
+            product = productDao.getById(id);
+        } catch (Exception ex) {
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Oops... our bad.");
         }
-    }
+
+        if (product == null) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
+     return product;
+}
 
     @PostMapping()
     @PreAuthorize("hasRole('ROLE_ADMIN')")
@@ -71,7 +62,7 @@ public class ProductsController
         }
         catch(Exception ex)
         {
-            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Oops... our bad.");
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Nothing Here but us Chickens...");
         }
     }
 
@@ -85,7 +76,7 @@ public class ProductsController
         }
         catch(Exception ex)
         {
-            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Oops... our bad.");
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Nothing Here but us Chickens...");
         }
     }
 
@@ -104,7 +95,7 @@ public class ProductsController
         }
         catch(Exception ex)
         {
-            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Oops... our bad.");
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Nothing Here but us Chickens....");
         }
     }
 }
