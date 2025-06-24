@@ -1,6 +1,7 @@
 package org.yearup.controllers;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 import org.yearup.data.ProductDao;
 import org.yearup.data.ShoppingCartDao;
@@ -11,6 +12,7 @@ import org.yearup.models.User;
 import java.security.Principal;
 
 // convert this class to a REST controller
+@RestController
 // only logged in users should have access to these actions
 public class ShoppingCartController
 {
@@ -26,7 +28,7 @@ public class ShoppingCartController
     {
         try
         {
-            // get the currently logged in username
+            // get the currently logged-in username
             String userName = principal.getName();
             // find database user by userId
             User user = userDao.getByUserName(userName);

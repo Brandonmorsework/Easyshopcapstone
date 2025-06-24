@@ -24,7 +24,7 @@ public class ProductsController {
 
     @GetMapping("")
     @PreAuthorize("permitAll()")
-    public List<Product> search(@RequestParam(name = "categoryId", required = false) Integer categoryId,
+    public List<Product> search(@RequestParam(name = "cat", required = false) Integer categoryId,
                                 @RequestParam(name = "minPrice", required = false) BigDecimal minPrice,
                                 @RequestParam(name = "maxPrice", required = false) BigDecimal maxPrice,
                                 @RequestParam(name = "color", required = false) String color
@@ -38,6 +38,7 @@ public class ProductsController {
 
     @GetMapping("{id}")
     @PreAuthorize("permitAll()")
+    /*@RequestMapping(path = "/products/{productId}", method = RequestMethod.GET)*/
     public Product getById(@PathVariable int id)
     {
         Product product = null;
@@ -55,6 +56,7 @@ public class ProductsController {
 
     @PostMapping()
     @PreAuthorize("hasRole('ROLE_ADMIN')")
+    /*@RequestMapping(path = "/products", method = RequestMethod.POST)*/
     public Product addProduct(@RequestBody Product product)
     {
         try
@@ -69,6 +71,7 @@ public class ProductsController {
 
     @PutMapping("{id}")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
+    /*@RequestMapping(path = "/products", method = RequestMethod.PUT)*/
     public void updateProduct(@PathVariable int id, @RequestBody Product product)
     {
         try

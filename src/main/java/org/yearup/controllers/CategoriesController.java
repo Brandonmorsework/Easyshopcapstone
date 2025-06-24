@@ -38,20 +38,13 @@ public class CategoriesController
 
     @GetMapping("")
     @PreAuthorize("permitAll()")
-    public List<Category> getAllCategories(@RequestParam(name="categoryId", required = false) Integer categoryId,
-                                 @RequestParam(name="name", required = false) String name,
-                                 @RequestParam(name="description", required = false) String description
-                                )
+    public List<Category> getAllCategories()
     {
-        try
-        {
-            return categoryDao.getAllCategories(categoryId, name, description);
+
+            return categoryDao.getAllCategories();
+
         }
-        catch(Exception ex)
-        {
-            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Nothing Here but us Chickens...");
-        }
-    }
+
 
     // add the appropriate annotation for a get action
     @GetMapping("{id}")
@@ -92,7 +85,7 @@ public class CategoriesController
 
     // add annotation to call this method for a POST action
     // add annotation to ensure that only an ADMIN can call this function
-    @PostMapping()
+    @PostMapping("/{category_id}")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public Category addCategory(@RequestBody Category category)
     // insert the category
