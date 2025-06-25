@@ -49,7 +49,8 @@ public class CategoriesController
     // add the appropriate annotation for a get action
     @GetMapping("{id}")
     @PreAuthorize("permitAll()")
-    public Category getById(@PathVariable int id) {
+    public Category getById(@PathVariable int id)
+    {
         Category category = null;
         try {
             category = categoryDao.getById(id);
@@ -85,7 +86,7 @@ public class CategoriesController
 
     // add annotation to call this method for a POST action
     // add annotation to ensure that only an ADMIN can call this function
-    @PostMapping("")
+    @PostMapping()
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public Category addCategory(@RequestBody Category category)
     // insert the category
@@ -129,7 +130,7 @@ public class CategoriesController
         {
             var category = categoryDao.getById(id);
 
-            if (category== null)
+            if (category == null)
                 throw new ResponseStatusException(HttpStatus.NOT_FOUND);
 
             categoryDao.delete(id);

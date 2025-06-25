@@ -1,11 +1,14 @@
 package org.yearup.controllers;
 
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 import org.yearup.data.ProductDao;
 import org.yearup.data.ShoppingCartDao;
 import org.yearup.data.UserDao;
+import org.yearup.models.Category;
+import org.yearup.models.Product;
 import org.yearup.models.ShoppingCart;
 import org.yearup.models.User;
 
@@ -13,7 +16,8 @@ import java.security.Principal;
 
 // convert this class to a REST controller
 @RestController
-// only logged in users should have access to these actions
+@RequestMapping("cart")
+// only logged-in users should have access to these actions
 public class ShoppingCartController
 {
     // a shopping cart requires
@@ -34,7 +38,7 @@ public class ShoppingCartController
             User user = userDao.getByUserName(userName);
             int userId = user.getId();
 
-            // use the shoppingcartDao to get all items in the cart and return the cart
+            // use the shoppingCartDao to get all items in the cart and return the cart
             return null;
         }
         catch(Exception e)
@@ -45,14 +49,60 @@ public class ShoppingCartController
 
     // add a POST method to add a product to the cart - the url should be
     // https://localhost:8080/cart/products/15 (15 is the productId to be added
+    @GetMapping("{id}")
+    @PreAuthorize("permitAll()")
+    public ShoppingCart addToUserCart(@PathVariable int id)
+    {
+        ShoppingCart cart = null;
+        try {
+            category = shoppingCartDao.addToCart(id);
+        } catch (Exception ex) {
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Nothing Here but us Chickens...");
+        }
+
+        if (category == null) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
+        return cart;
+    }
 
 
     // add a PUT method to update an existing product in the cart - the url should be
     // https://localhost:8080/cart/products/15 (15 is the productId to be updated)
     // the BODY should be a ShoppingCartItem - quantity is the only value that will be updated
-
+    @PutMapping("{id}")
+    @PreAuthorize("permitAll()")
+    public void updateCart(@PathVariable int id, @RequestBody Product product)
+    {
+        try
+        {
+            productDao.update(id, product);
+        }
+        catch(Exception ex)
+        {
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Nothing Here but us Chickens...");
+        }
+    }
 
     // add a DELETE method to clear all products from the current users cart
     // https://localhost:8080/cart
+    @DeleteMapping()
+    @PreAuthorize("permitAll()")
+    public void clearCart(@PathVariable int id)
+    {
+        try
+        {
+            var cart = ShoppingCartDao.
+
+            if(product == null)
+                throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+
+            productDao.delete(id);
+        }
+        catch(Exception ex)
+        {
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Nothing Here but us Chickens....");
+        }
+    }
 
 }

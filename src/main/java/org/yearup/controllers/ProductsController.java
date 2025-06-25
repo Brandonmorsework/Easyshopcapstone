@@ -38,7 +38,6 @@ public class ProductsController {
 
     @GetMapping("{id}")
     @PreAuthorize("permitAll()")
-    /*@RequestMapping(path = "/products/{productId}", method = RequestMethod.GET)*/
     public Product getById(@PathVariable int id)
     {
         Product product = null;
@@ -56,7 +55,6 @@ public class ProductsController {
 
     @PostMapping()
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    /*@RequestMapping(path = "/products", method = RequestMethod.POST)*/
     public Product addProduct(@RequestBody Product product)
     {
         try
@@ -65,13 +63,12 @@ public class ProductsController {
         }
         catch(Exception ex)
         {
-            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Nothing Here but us Chickens...");
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Oops... our bad.");
         }
     }
 
     @PutMapping("{id}")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    /*@RequestMapping(path = "/products", method = RequestMethod.PUT)*/
     public void updateProduct(@PathVariable int id, @RequestBody Product product)
     {
         try
