@@ -52,6 +52,7 @@ public class ShoppingCartController
     // https://localhost:8080/cart/products/15 (15 is the productId to be added
     @PostMapping("/products/{productId}")
     @PreAuthorize("permitAll()")
+    @ResponseStatus(value = HttpStatus.CREATED)
     public ShoppingCart addToUserCart(@PathVariable int productId, Principal principal)
     {
         try {
@@ -93,6 +94,7 @@ public class ShoppingCartController
     // https://localhost:8080/cart
     @DeleteMapping
     @PreAuthorize("permitAll()")
+    @ResponseStatus(value = HttpStatus.NO_CONTENT)
     public void clearCart(Principal principal) {
 
         try {
