@@ -17,6 +17,7 @@ import java.security.Principal;
 // convert this class to a REST controller
 @RestController
 @RequestMapping("cart")
+
 // only logged-in users should have access to these actions
 public class ShoppingCartController
 {
