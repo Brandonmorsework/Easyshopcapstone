@@ -76,8 +76,7 @@ public class MySqlCategoryDao extends MySqlDaoBase implements CategoryDao
     // create a new category
     {
 
-        String sql = "INSERT INTO categories(name) " +
-                " VALUES (?);";
+        String sql = "INSERT INTO categories (name) VALUES (?);";
 
         try (Connection connection = getConnection())
         {
@@ -88,7 +87,7 @@ public class MySqlCategoryDao extends MySqlDaoBase implements CategoryDao
 
             int rowsAffected = statement.executeUpdate();
 
-            if (rowsAffected == 0) {
+            if (rowsAffected > 0) {
                 // Retrieve the generated keys
                 ResultSet generatedKeys = statement.getGeneratedKeys();
 
@@ -113,14 +112,16 @@ public class MySqlCategoryDao extends MySqlDaoBase implements CategoryDao
     // update category
     {
         String sql = "UPDATE categories" +
-                " SET name = ? " +
+                " SET name = ?, " +
+                " description = ?" +
                 " WHERE category_id = ?;";
 
         try (Connection connection = getConnection())
         {
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setString(1, category.getName());
-            statement.setInt(2, categoryId);
+            statement.setString(2, category.getDescription());
+            statement.setInt(3, categoryId);
 
 
             statement.executeUpdate();
