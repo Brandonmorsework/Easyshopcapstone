@@ -39,7 +39,7 @@ public class ShoppingCartController
             int userId = user.getId();
 
             // use the shoppingCartDao to get all items in the cart and return the cart
-            return null;
+            return shoppingCartDao.getByUserId(userId);
         }
         catch(Exception e)
         {
@@ -49,34 +49,38 @@ public class ShoppingCartController
 
     // add a POST method to add a product to the cart - the url should be
     // https://localhost:8080/cart/products/15 (15 is the productId to be added
-    @GetMapping("{id}")
+    @PostMapping("/products/{productId}")
     @PreAuthorize("permitAll()")
-    public ShoppingCart addToUserCart(@PathVariable int id)
+    public ShoppingCart addToUserCart(@PathVariable int productId, Principal principal)
     {
-        ShoppingCart cart = null;
         try {
-            category = shoppingCartDao.addToCart(id);
-        } catch (Exception ex) {
-            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Nothing Here but us Chickens...");
-        }
+            String userName = principal.getName();
+            User user = userDao.getByUserName(userName);
+            int userId = user.getId();
 
-        if (category == null) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+            return shoppingCartDao.addToCart(userId, productId);
         }
-        return cart;
+        catch (Exception ex)
+        {
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Oops... our bad.");
+        }
     }
 
 
     // add a PUT method to update an existing product in the cart - the url should be
     // https://localhost:8080/cart/products/15 (15 is the productId to be updated)
     // the BODY should be a ShoppingCartItem - quantity is the only value that will be updated
-    @PutMapping("{id}")
+    @PutMapping("/products/{productId}")
     @PreAuthorize("permitAll()")
-    public void updateCart(@PathVariable int id, @RequestBody Product product)
+    public void updateCart(@PathVariable int productId, @RequestBody int quantity, Principal principal)
     {
         try
         {
-            productDao.update(id, product);
+            String userName = principal.getName();
+            User user = userDao.getByUserName(userName);
+            int userId = user.getId();
+
+            shoppingCartDao.updateCart(userId, productId, quantity);
         }
         catch(Exception ex)
         {
@@ -86,23 +90,20 @@ public class ShoppingCartController
 
     // add a DELETE method to clear all products from the current users cart
     // https://localhost:8080/cart
-    @DeleteMapping()
+    @DeleteMapping
     @PreAuthorize("permitAll()")
-    public void clearCart(@PathVariable int id)
-    {
-        try
-        {
-            var cart = ShoppingCartDao.
+    public void clearCart(Principal principal) {
 
-            if(product == null)
-                throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        try {
 
-            productDao.delete(id);
-        }
-        catch(Exception ex)
-        {
+            String userName = principal.getName();
+            User user = userDao.getByUserName(userName);
+            int userId = user.getId();
+
+            shoppingCartDao.clearCart(userId);
+        } catch (Exception ex) {
+
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Nothing Here but us Chickens....");
         }
     }
-
 }
