@@ -1,6 +1,6 @@
+
 package org.yearup.controllers;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -8,8 +8,6 @@ import org.springframework.web.server.ResponseStatusException;
 import org.yearup.data.ProductDao;
 import org.yearup.data.ShoppingCartDao;
 import org.yearup.data.UserDao;
-import org.yearup.models.Category;
-import org.yearup.models.Product;
 import org.yearup.models.ShoppingCart;
 import org.yearup.models.User;
 
@@ -27,12 +25,6 @@ public class ShoppingCartController
     private UserDao userDao;
     private ProductDao productDao;
 
-    @Autowired
-    public ShoppingCartController(ShoppingCartDao shoppingCartDao, UserDao userDao, ProductDao productDao) {
-        this.shoppingCartDao = shoppingCartDao;
-        this.userDao = userDao;
-        this.productDao = productDao;
-    }
 
     @GetMapping
     // each method in this controller requires a Principal object as a parameter
@@ -82,7 +74,7 @@ public class ShoppingCartController
     @PutMapping("/products/{productId}")
     @PreAuthorize("isAuthenticated()")
 
-    public void updateCart(@PathVariable int productId, @RequestBody int quantity, Principal principal)
+    public void updateCart(@PathVariable int productId, @RequestBody int quantity , Principal principal)
     {
         try
         {
@@ -101,7 +93,7 @@ public class ShoppingCartController
     // add a DELETE method to clear all products from the current users cart
     // https://localhost:8080/cart
     @DeleteMapping
-    @PreAuthorize("permitAll()")
+    @PreAuthorize("isAuthenticated()")
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
     public void clearCart(Principal principal) {
 
@@ -118,3 +110,4 @@ public class ShoppingCartController
         }
     }
 }
+
