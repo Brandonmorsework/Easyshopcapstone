@@ -7,6 +7,8 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+// handles user related fields such as id, username, password as well as role management handling authority
+
 public class User {
 
    private int id;

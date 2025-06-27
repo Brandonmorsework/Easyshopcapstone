@@ -2,6 +2,9 @@ package org.yearup.models;
 
 import java.math.BigDecimal;
 
+
+// initializes vital variables for the ProductsController and Dao
+
 public class Product
 {
     private int productId;

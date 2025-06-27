@@ -1,5 +1,7 @@
 package org.yearup.models;
 
+// encapsulates the profile data for a user, allowing for easy storage, manipulation, and retrieval
+
 public class Profile
 {
     private int userId;

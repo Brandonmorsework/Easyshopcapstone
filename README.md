@@ -1,6 +1,6 @@
 # Easy Shop - Brandon Morse
 
-## The Easy Shop Application is a website that allows users to filter transactions by name, color and price. The application also allows admin users to update and delete categories and products.
+## The Easy Shop Application is a website that allows users to filter products by name, color and price. The application also allows admin users to add, update and delete categories and products.
 
 ## User Stories
 

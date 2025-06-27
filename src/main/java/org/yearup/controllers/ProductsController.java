@@ -71,6 +71,8 @@ public class ProductsController {
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public void updateProduct(@PathVariable int id, @RequestBody Product product) {
 
+        //fixed a bug where update product was using the productDao.create instead of productDao.update method, causing duplicate items in the web application
+
         try {
 
             productDao.update(id, product);
