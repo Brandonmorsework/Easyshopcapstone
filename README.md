@@ -37,6 +37,8 @@ Follow these steps to get your Financial Tracker Application running within Inte
 ## Technologies Used
 
 - IntelliJ (Amazon Corretto 17.0.14)
+- POSTMAN
+- MySQL Workbench
 
 ## Demo
 
