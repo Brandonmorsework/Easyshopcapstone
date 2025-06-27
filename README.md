@@ -12,14 +12,12 @@
 
 - As an admin, I want to be able to be able to add, update and delete categories and products so that I can keep the easy shop updated.
 
-- As a user, I want to be able to create a shopping cart so that I can add a collection of items to purchase.
-
 ## Setup
 
 1. Create the CategoriesController class similarly to how the ProductController class is built
 2. Fix bugs regarding minimum and maximum price for the web application and duplicate items
 3. Update queries inside both MySqlCategoryDao and MySqlProductDao classes to reflect the easy shop database
-4. Run query script in POSTMAN and see changes inside MySQL workbench and the easy shop application
+4. Run query script in POSTMAN and see changes inside MySQL workbench and the easy shop web application
 
 ### Prerequisites
 
