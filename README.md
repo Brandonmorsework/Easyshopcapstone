@@ -63,4 +63,4 @@ Follow these steps to get your Financial Tracker Application running within Inte
 
 ## Thanks!
 
-- Thank you to Mr. Raymond for continuous support and guidance!
+- Thank you to Mr. Raymond for continuous support and guidance throughout these past 3 months. It was a pleasure learning Java and being a potato student!
