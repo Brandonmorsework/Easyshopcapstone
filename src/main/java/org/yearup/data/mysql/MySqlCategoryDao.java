@@ -17,10 +17,11 @@ public class MySqlCategoryDao extends MySqlDaoBase implements CategoryDao
         super(dataSource);
     }
 
+    // get all categories logic
     @Override
     public List<Category> getAllCategories()
     {
-        // get all categories
+
         List<Category> categories = new ArrayList<>();
 
         String sql = "SELECT * FROM categories";
@@ -71,9 +72,11 @@ public class MySqlCategoryDao extends MySqlDaoBase implements CategoryDao
         return null;
     }
 
+    // creating a new category logic
+
     @Override
     public Category create(Category category)
-    // create a new category
+
     {
 
         String sql = "INSERT INTO categories (name, description) VALUES (?, ?);";
@@ -108,9 +111,11 @@ public class MySqlCategoryDao extends MySqlDaoBase implements CategoryDao
         return category;
     }
 
+    // updating a category logic
+
     @Override
     public void update(int categoryId, Category category)
-    // update category
+
     {
         String sql = "UPDATE categories" +
                 " SET name = ?, " +
@@ -133,6 +138,8 @@ public class MySqlCategoryDao extends MySqlDaoBase implements CategoryDao
         }
     }
 
+    // deleting a category logic
+
     @Override
     public void delete(int categoryId)
     // delete category
@@ -153,6 +160,8 @@ public class MySqlCategoryDao extends MySqlDaoBase implements CategoryDao
             throw new RuntimeException(e);
         }
     }
+
+    // helper method used in getAllCategories method to prevent repetition
 
     private Category mapRow(ResultSet row) throws SQLException
     {

@@ -11,6 +11,8 @@ public class DatabaseConfig
 {
     private BasicDataSource basicDataSource;
 
+    //Handles the username and password configuration
+
     @Bean
     public BasicDataSource dataSource()
     {

@@ -6,6 +6,8 @@ public class Category
     private String name;
     private String description;
 
+    // initializes vital variables for the CategoriesController and Dao
+
     public Category()
     {
     }

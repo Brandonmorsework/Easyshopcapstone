@@ -4,6 +4,8 @@ import org.yearup.models.Product;
 import java.math.BigDecimal;
 import java.util.List;
 
+//interface that holds vital methods to be used by the MySqlProductDao
+
 public interface ProductDao
 {
     List<Product> search(Integer categoryId, BigDecimal minPrice, BigDecimal maxPrice, String color);

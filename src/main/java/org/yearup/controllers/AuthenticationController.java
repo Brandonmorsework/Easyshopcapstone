@@ -23,6 +23,8 @@ import org.yearup.models.User;
 import org.yearup.security.jwt.JWTFilter;
 import org.yearup.security.jwt.TokenProvider;
 
+//Handles the Authentication of user profiles, uses tokens to keep user info while they are logged-in
+
 @RestController
 @CrossOrigin
 @PreAuthorize("permitAll()")

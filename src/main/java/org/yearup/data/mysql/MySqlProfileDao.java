@@ -7,6 +7,8 @@ import org.yearup.data.ProfileDao;
 import javax.sql.DataSource;
 import java.sql.*;
 
+//creates a profile with additional information for the user
+
 @Component
 public class MySqlProfileDao extends MySqlDaoBase implements ProfileDao
 {

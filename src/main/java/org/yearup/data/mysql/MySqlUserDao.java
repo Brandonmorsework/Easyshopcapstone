@@ -11,6 +11,8 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+// Handles the user creation and logic for the easy shop web application
+
 @Component
 public class MySqlUserDao extends MySqlDaoBase implements UserDao
 {

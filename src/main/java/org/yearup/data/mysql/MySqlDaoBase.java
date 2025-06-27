@@ -6,6 +6,9 @@ import java.sql.SQLException;
 
 public abstract class MySqlDaoBase
 {
+
+    // Handles logic for connecting the database
+
     private DataSource dataSource;
 
     public MySqlDaoBase(DataSource dataSource)

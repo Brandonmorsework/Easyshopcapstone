@@ -4,6 +4,8 @@ import org.yearup.models.Category;
 
 import java.util.List;
 
+//interface that holds vital methods to be used by the MySqlCategoryDao
+
 public interface CategoryDao
 {
     List<Category> getAllCategories();

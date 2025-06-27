@@ -35,6 +35,7 @@ public class TokenProvider implements InitializingBean
 
     private Key key;
 
+//gives the user a token to hold their info while logged-in
 
     public TokenProvider(
             @Value("${jwt.secret}") String secret,

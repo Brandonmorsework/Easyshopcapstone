@@ -1,6 +1,7 @@
 # Easy Shop - Brandon Morse
 
 ## The Easy Shop Application is a website that allows users to filter transactions by name, color and price. The application also allows admin users to update and delete categories and products.
+
 ## User Stories
 
 - As a user, I want to search by a product's color so that I can make my shopping process easier.
@@ -17,8 +18,9 @@
 
 1. Create the CategoriesController class similarly to how the ProductController class is built
 2. Fix bugs regarding minimum and maximum price for the web application and duplicate items
-3. Update queries inside MySqlDao classes to reflect the easy shop database
-4. 
+3. Update queries inside both MySqlCategoryDao and MySqlProductDao classes to reflect the easy shop database
+4. Run query script in POSTMAN and see changes inside MySQL workbench and the easy shop application
+
 ### Prerequisites
 
 - IntelliJ IDEA: Ensure you have IntelliJ IDEA installed, which you can download from [here](https://www.jetbrains.com/idea/download/).
@@ -40,11 +42,12 @@ Follow these steps to get your Financial Tracker Application running within Inte
 
 ## Demo
 
-![Application Screenshot](ApplicationScreenshotDateRanges.png)
-![Application Screenshot_B](ApplicationScreenshot_B.png)
-![Application Screenshot_C](ApplicationScreenshot_C.png)
-![Application Screenshot_D](ApplicationScreenshot_D.png)
-![Application Screenshot E](ApplicationScreenshot_E.png)
+![Application Screenshot](PostManScreenshot_A.png)
+![Application Screenshot_B](PostManScreenshot_B.png)
+![Application Screenshot_C](PostManScreenshot_A.png)
+![Application Screenshot_D](WebAppScreenshot_A.png)
+![Application Screenshot_D](WebAppScreenshot_B.png)
+
 
 ## Future Work
 
